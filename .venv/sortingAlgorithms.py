@@ -39,11 +39,11 @@ def bubbleSort(arr):#O(n^2)
     ordered = True
     for i in range(len(arr)): #we need to go through the entire array
         for j in range(len(arr) - i - 1): #like bubbles, but in this case bigger values float first each iteration
-            if arr[j] > arr[j+1]:           # of j one space to the right.
+            if arr[j] > arr[j+1]:         # of j one space to the right.
                 old = arr[j+1]
                 arr[j+1] = arr[j]
-                arr[j] = old            #updates to swap bigger to the right
-                ordered = False         # if we entered the if statement once during the loop then the array is not ordered yet
+                arr[j] = old    #updates to swap bigger to the right
+                ordered = False # if we entered the if statement once during the loop then the array is not ordered yet
         if ordered:
             return arr
     return arr
