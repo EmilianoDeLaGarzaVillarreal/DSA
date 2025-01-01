@@ -10,9 +10,9 @@ class Node:
         return str(self.data)
 
 class DoubleLinkedList: #Double linked list implementation
-    l = 0
 
     def __init__(self): #initiates with two variables, both pointing to None
+        self.l = 0
         self.head = None
         self.tail = None
 
@@ -30,7 +30,7 @@ class DoubleLinkedList: #Double linked list implementation
 
     def getNode(self, ind): #Gets node based on index passed by user
         if ind >= self.l: #if index is over DLL length, it will throw an error while returning -1
-            return -1
+            return 0
         node = self.head
         current = 0
         while current < ind: #runs for lenth of index
@@ -73,5 +73,88 @@ class DoubleLinkedList: #Double linked list implementation
         return node
 
 
-    def insertAt(self, ind):
-        return 0
+    def insertAt(self, node, ind):
+        if self.l == 0:
+            self.append(node)
+            return node
+        myNode = self.getNode(ind)
+        if not myNode: #Outside current length
+            return 0
+        if myNode.next and myNode.prev: #In between
+            prevNode = myNode.prev
+            nextNode = myNode.next
+            prevNode.next = node
+            myNode.prev = node
+            node.next = myNode
+        elif myNode.next and not myNode.prev: #this means we are inserting new head
+            myNode.prev = node
+            node.next = myNode
+            self.head = node
+        elif not myNode.next and myNode.prev: #before the tail
+            prevNode = myNode.prev
+            prevNode.next = node
+            myNode.prev = node
+            node.next = myNode
+        self.l += 1
+        return node
+
+class LinkedList:
+
+    def __init__(self):
+        self.l = 0
+        self.head = None
+        self.tail = None
+
+    def __str__(self):
+        if self.l == 0:
+            return " "
+        node = self.head
+        out = ""
+        while node.next:
+            out += str(node) + " "
+            node = node.next
+        out += str(node)
+        return out
+
+    def append(self, node):
+        if self.l == 0:
+            self.head = node
+            self.tail = node
+        else:
+            self.tail.next = node
+            node.prev = self.tail
+            self.tail = node
+        self.l += 1
+
+    def pop(self):
+        node = self.tail
+        prevNode = self.tail.prev
+        self.tail = prevNode
+        self.tail.next = None
+        return node
+
+    def dequeue(self): #method more specific to queue
+        if self.l == 0:
+            return 0
+        node = self.head
+        self.head = node.next
+        node.next = None
+        self.l -= 1
+        return node
+
+class Queue: #implemented from linked list as it basically a more specific linked list
+
+    def __init__(self):
+        self.list = LinkedList()
+
+    def __str__(self):
+        return self.list.__str__()
+
+    def enqueue(self, node):
+        self.list.append(node)
+
+    def dequeue(self):
+        return self.list.dequeue()
+
+    def peek(self):
+        return self.list.head

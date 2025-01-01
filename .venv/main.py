@@ -16,11 +16,15 @@ for i in range(100):
 n1 = Node(1)
 n2 = Node(2)
 n3 = Node(3)
+n4 = Node(4)
 
-l = DoubleLinkedList()
-l.appendNodeList([n1,n2,n3])
-
-l.remove(n3)
+l = Queue()
+l.enqueue(n1)
+l.enqueue(n2)
+l.enqueue(n3)
 
 print(l)
-print(l.getLength())
+print(l.dequeue())
+print(l.dequeue())
+print(l.dequeue())
+print(l)
